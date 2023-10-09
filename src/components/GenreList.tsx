@@ -5,9 +5,10 @@ import GenreListSkeleton from "./GenreListSkeleton";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-const GenreList = ({ onSelectGenre }: Props) => {
+const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   const { data, error, isLoading } = useGenres();
   let skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   if (error) return null;
@@ -22,6 +23,9 @@ const GenreList = ({ onSelectGenre }: Props) => {
               backgroundColor: "gray.700",
               cursor: "pointer",
             }}
+            backgroundColor={
+              selectedGenre && selectedGenre.id == genre.id ? "gray.700" : "transparent"
+            }
             onClick={() => {
               onSelectGenre(genre);
             }}
