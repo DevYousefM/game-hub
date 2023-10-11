@@ -51,7 +51,7 @@ npm install
 ## Usage
 ```bash
 # Start the development server
-npm start
+npm run dev
 ```
 
 
