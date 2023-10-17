@@ -7,16 +7,16 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import useGenres, { Genre } from "../hooks/useGenres";
+import useGenres from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 import GenreListSkeleton from "./GenreListSkeleton";
 
 interface Props {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  onSelectGenreId: (genre: number) => void;
+  selectedGenreId?: number;
 }
 
-const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
+const GenreList = ({ onSelectGenreId, selectedGenreId }: Props) => {
   const { data, error, isLoading } = useGenres();
   let skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const bg = useColorModeValue("gray.100", "gray.700");
@@ -39,17 +39,17 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
         Genres
       </Heading>
       <List>
-        {data.map((genre) => (
+        {data.results.map((genre) => (
           <ListItem
             _hover={{
               backgroundColor: bg,
               cursor: "pointer",
             }}
             backgroundColor={
-              selectedGenre && selectedGenre.id == genre.id ? bg : "transparent"
+              selectedGenreId && selectedGenreId == genre.id ? bg : "transparent"
             }
             onClick={() => {
-              onSelectGenre(genre);
+              onSelectGenreId(genre.id);
             }}
             key={genre.id}
             padding="5px"
